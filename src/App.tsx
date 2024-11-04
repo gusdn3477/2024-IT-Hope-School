@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Landing } from './pages/Landing';
 import { Header } from './pages/Main/Header';
 import { Main } from './pages/Main';
-import PrivateRoute from './component/route/PrivateRoute';
+import PrivateRoute from './PrivateRoute';
 
 const App = () => {
   return (
