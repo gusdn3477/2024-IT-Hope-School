@@ -1,13 +1,5 @@
-import potatobag from '../assets/potatobag.png';
-import grownPotato from '../assets/grown_potato.png';
-import sweetPotatobag from '../assets/sweetpotatobag.png';
-import grownSweetPotato from '../assets/grown_sweetpotato.png';
-import carrotbag from '../assets/carrotbag.png';
-import grownCarrot from '../assets/grown_carrot.png';
-import melonbag from '../assets/melonbag.png';
-import grownMelon from '../assets/grown_melon.png';
-import tomatobag from '../assets/tomatobag.png';
-import grownTomato from '../assets/grown_tomato.png';
+import ndivia from '../assets/ndiviia.png';
+import macrosoft from '../assets/macrosoft.png';
 
 export interface ItemInterface {
   id: string;
@@ -22,8 +14,7 @@ export const items = {
   '0': {
     id: '0',
     name: 'NDIVIA',
-    bagImgSrc: potatobag,
-    grownImgSrc: grownPotato,
+    bagImgSrc: ndivia,
     price: 50,
     day: 1,
     count: 60,
@@ -32,8 +23,7 @@ export const items = {
   '1': {
     id: '1',
     name: 'MACROSOFT',
-    bagImgSrc: sweetPotatobag,
-    grownImgSrc: grownSweetPotato,
+    bagImgSrc: macrosoft,
     price: 60,
     day: 1,
     count: 60,
