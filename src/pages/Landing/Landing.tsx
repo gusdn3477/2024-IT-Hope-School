@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import gameLogo from '../../assets/logo.png';
+import gameLogo from '../../assets/life_game.jpg';
 import * as S from './style';
-import { observer } from 'mobx-react-lite';
-import { useStore } from '../../hooks/useStore';
 import { SignupModal } from '../../component/modal/Signup';
 import { LoginModal } from '../../component/modal/Login';
 import { useNavigate } from 'react-router-dom';
@@ -10,13 +8,14 @@ import login from '../../assets/login.png';
 import register from '../../assets/register.png';
 import logout from '../../assets/logout.png';
 import play from '../../assets/play.png';
+import useAuthStore from '../../stores/useAuthStore';
 
-export const Landing = observer(() => {
-  const { userStore } = useStore();
+export const Landing = () => {
   const navigate = useNavigate();
 
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [signupModalOpen, setSignupModalOpen] = useState(false);
+  const { authenticated, setAuthenticated } = useAuthStore();
 
   return (
     <S.LandingWrapper>
@@ -30,7 +29,7 @@ export const Landing = observer(() => {
           alignItems: 'center',
         }}
       >
-        <div style={{ marginTop: '50px' }}>
+        <div style={{ marginTop: '150px' }}>
           <img
             src={gameLogo}
             className="logo"
@@ -41,23 +40,22 @@ export const Landing = observer(() => {
             }}
           />
         </div>
-        <h1 style={{ color: 'white' }}>IT 희망농장</h1>
         <S.ButtonWrapper>
-          {userStore.isLogin ? (
+          {authenticated ? (
             <>
               <img
                 src={play}
                 width={240}
-                height={80}
+                height={100}
                 style={{ cursor: 'pointer' }}
                 onClick={() => navigate('main')}
               />
               <img
                 src={logout}
                 width={240}
-                height={80}
+                height={100}
                 style={{ cursor: 'pointer' }}
-                onClick={() => userStore.logout()}
+                onClick={() => setAuthenticated(false)}
               />
             </>
           ) : (
@@ -65,14 +63,14 @@ export const Landing = observer(() => {
               <img
                 src={login}
                 width={240}
-                height={80}
+                height={100}
                 style={{ cursor: 'pointer' }}
                 onClick={() => setLoginModalOpen(true)}
               />
               <img
                 src={register}
                 width={240}
-                height={80}
+                height={100}
                 style={{ cursor: 'pointer' }}
                 onClick={() => setSignupModalOpen(true)}
               />
@@ -91,4 +89,4 @@ export const Landing = observer(() => {
       </div>
     </S.LandingWrapper>
   );
-});
+};

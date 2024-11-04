@@ -1,29 +1,22 @@
 import { create } from 'zustand';
-import { persist, PersistOptions } from 'zustand/middleware';
 
 type State = {
-  token: string | null;
+  authenticated: boolean;
 };
 
 type Action = {
-  setToken: (token: State['token']) => void;
-  clearToken: () => void;
+  setAuthenticated: (state: boolean) => void;
 };
 
 type AuthState = State & Action;
 
-const useAuthStore = create<AuthState>()(
-  persist<AuthState>(
-    (set) => ({
-      token: null,
-      setToken: (token) => set({ token }),
-      clearToken: () => set({ token: null }),
-    }),
-    {
-      name: 'auth-storage',
-      getStorage: () => sessionStorage,
-    } as PersistOptions<AuthState>,
-  ),
-);
+const useAuthStore = create<AuthState>((set) => ({
+  authenticated: false,
+  setAuthenticated: (state) => {
+    set({
+      authenticated: state,
+    });
+  },
+}));
 
 export default useAuthStore;

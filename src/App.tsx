@@ -1,5 +1,5 @@
 import './index.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Landing } from './pages/Landing';
 import { Header } from './pages/Main/Header';
 import Farms from './pages/Main/Farm/Farms';
@@ -15,6 +15,7 @@ const App = () => {
             <Route path="" element={<Farms />} />
           </Route>
         </Route>
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );

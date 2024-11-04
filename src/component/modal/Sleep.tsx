@@ -1,7 +1,7 @@
 import { Dialog, DialogTitle } from '@mui/material';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import goodnight from '../../assets/goodnight.png';
+import goodnight from '../../assets/sleep.png';
 
 export interface SleepModalProps {
   open: boolean;

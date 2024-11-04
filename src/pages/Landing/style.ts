@@ -18,6 +18,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-top: 80px;
   & img {
     margin-top: 35px;
   }
@@ -25,6 +26,5 @@ export const ButtonWrapper = styled.div`
 
 export const StyledButton = styled.button`
   width: 240px;
-  height: 80px;
   cursor: pointer;
 `;

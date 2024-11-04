@@ -1,12 +1,11 @@
-import { observer } from 'mobx-react-lite';
-import { useStore } from '../../hooks/useStore';
 import { Navigate, Outlet } from 'react-router-dom';
+import useAuthStore from '../../stores/useAuthStore';
 
-const PrivateRoute = observer(() => {
-  const { userStore } = useStore();
+const PrivateRoute = () => {
+  const { authenticated } = useAuthStore();
 
-  if (userStore.isLogin) return <Outlet />;
+  if (authenticated) return <Outlet />;
   return <Navigate to="/" replace />;
-});
+};
 
 export default PrivateRoute;

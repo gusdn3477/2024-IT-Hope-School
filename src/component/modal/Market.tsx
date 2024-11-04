@@ -3,7 +3,6 @@ import { ItemInterface, items as marketItems } from '../../constants/items';
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogTitle,
   IconButton,
   Paper,
@@ -16,11 +15,10 @@ import {
   TextField,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import _ from 'lodash';
 import styled from 'styled-components';
 import { useStore } from '../../hooks/useStore';
-import { marketStore } from '../../stores/MarketStore';
 import { observer } from 'mobx-react-lite';
 
 export interface SimpleDialogProps {

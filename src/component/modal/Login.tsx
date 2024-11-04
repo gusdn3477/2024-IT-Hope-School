@@ -9,6 +9,7 @@ import {
   StyledTextField,
 } from './style';
 import { useState } from 'react';
+import useAuthStore from '../../stores/useAuthStore';
 
 interface LoginModalProps {
   open: boolean;
@@ -19,14 +20,15 @@ export const LoginModal = observer(({ open, handleClose }: LoginModalProps) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
+  const { setAuthenticated } = useAuthStore();
 
   const handleLogin = async () => {
-    const res = await userStore.login({
+    const success = await userStore.login({
       id,
       password,
     });
-    if (res) {
-      userStore.isLogin = true;
+    if (success) {
+      setAuthenticated(true);
       handleClose();
     } else setError(true);
   };

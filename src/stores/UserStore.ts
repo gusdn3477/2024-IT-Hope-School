@@ -1,7 +1,6 @@
 import { makeAutoObservable, toJS } from 'mobx';
 import { userRepository } from '../repository/UserRepository';
 class UserStore {
-  isLogin = false;
   user = {};
   constructor() {
     makeAutoObservable(this);
@@ -32,10 +31,6 @@ class UserStore {
     } catch (e) {
       console.log(e);
     }
-  }
-
-  logout() {
-    this.isLogin = false;
   }
 }
 
