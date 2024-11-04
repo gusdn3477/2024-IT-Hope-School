@@ -41,50 +41,29 @@ export const Landing = () => {
           />
         </div>
         <S.ButtonWrapper>
-          {authenticated ? (
-            <>
-              <img
-                src={play}
-                width={240}
-                height={100}
-                style={{ cursor: 'pointer' }}
-                onClick={() => navigate('main')}
-              />
-              <img
-                src={logout}
-                width={240}
-                height={100}
-                style={{ cursor: 'pointer' }}
-                onClick={() => setAuthenticated(false)}
-              />
-            </>
-          ) : (
-            <>
-              <img
-                src={login}
-                width={240}
-                height={100}
-                style={{ cursor: 'pointer' }}
-                onClick={() => setLoginModalOpen(true)}
-              />
-              <img
-                src={register}
-                width={240}
-                height={100}
-                style={{ cursor: 'pointer' }}
-                onClick={() => setSignupModalOpen(true)}
-              />
+          <img
+            src={login}
+            width={240}
+            height={100}
+            style={{ cursor: 'pointer' }}
+            onClick={() => setLoginModalOpen(true)}
+          />
+          <img
+            src={register}
+            width={240}
+            height={100}
+            style={{ cursor: 'pointer' }}
+            onClick={() => setSignupModalOpen(true)}
+          />
 
-              <LoginModal
-                open={loginModalOpen}
-                handleClose={() => setLoginModalOpen(false)}
-              />
-              <SignupModal
-                open={signupModalOpen}
-                handleClose={() => setSignupModalOpen(false)}
-              />
-            </>
-          )}
+          <LoginModal
+            open={loginModalOpen}
+            handleClose={() => setLoginModalOpen(false)}
+          />
+          <SignupModal
+            open={signupModalOpen}
+            handleClose={() => setSignupModalOpen(false)}
+          />
         </S.ButtonWrapper>
       </div>
     </S.LandingWrapper>

@@ -10,6 +10,7 @@ import {
 } from './style';
 import { useState } from 'react';
 import useAuthStore from '../../stores/useAuthStore';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginModalProps {
   open: boolean;
@@ -21,6 +22,7 @@ export const LoginModal = observer(({ open, handleClose }: LoginModalProps) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   const { setAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     const success = await userStore.login({
@@ -30,6 +32,7 @@ export const LoginModal = observer(({ open, handleClose }: LoginModalProps) => {
     if (success) {
       setAuthenticated(true);
       handleClose();
+      navigate('/main');
     } else setError(true);
   };
 
