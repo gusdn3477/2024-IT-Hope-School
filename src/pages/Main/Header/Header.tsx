@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { MarketModal } from '../../../component/modal/Market';
 import {
   HeaderTitleWrapper,
   OutletWrapper,

@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
-import workIcon from '../../../assets/work.png';
-import wealthIcon from '../../../assets/wealth.png';
-import stockIcon from '../../../assets/stock_market.png';
-import houseIcon from '../../../assets/house.png';
-import { MarketModal } from '../../../component/modal/Market';
-import { useStore } from '../../../hooks/useStore';
-import SleepModal from '../../../component/modal/Sleep';
-import background from '../../../assets/farm_image.jpg';
+import workIcon from '../../assets/work.png';
+import wealthIcon from '../../assets/wealth.png';
+import stockIcon from '../../assets/stock_market.png';
+import background from '../../assets/farm_image.jpg';
+import houseIcon from '../../assets/house.png';
+import { MarketModal } from '../../component/modal/Market';
+import { useStore } from '../../hooks/useStore';
+import SleepModal from '../../component/modal/Sleep';
 
 const StyledFarmGrid = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const StyledFarmGrid = styled.div`
   background-size: cover;
 `;
 
-const Farms = observer(() => {
+const Main = observer(() => {
   const [sleepModalOpen, setSleepModalOpen] = useState(false);
   const [marketOpen, setMarketOpen] = useState(false);
   const [isPurchase, setIsPurchase] = useState(true);
@@ -88,4 +88,4 @@ const Farms = observer(() => {
   );
 });
 
-export default Farms;
+export default Main;
