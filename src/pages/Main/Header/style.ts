@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import background from '../../../assets/gamebg.png';
 
 export const StyledHeader = styled.div`
   display: flex;
@@ -16,8 +15,6 @@ export const OutletWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(${background});
-  background-size: 100%;
 `;
 
 export const StyledButtonWrapper = styled('div')`

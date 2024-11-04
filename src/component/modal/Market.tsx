@@ -21,9 +21,10 @@ import styled from 'styled-components';
 import { useStore } from '../../hooks/useStore';
 import { observer } from 'mobx-react-lite';
 
-export interface SimpleDialogProps {
+export interface MarketModalProps {
   open: boolean;
   onClose: () => void;
+  isPurchase?: boolean;
 }
 
 const StyledTableCell = styled(TableCell)`
@@ -38,8 +39,8 @@ const StyledTextField = styled(TextField)`
   }
 `;
 
-export const MarketModal = observer((props: SimpleDialogProps) => {
-  const { onClose, open } = props;
+export const MarketModal = observer((props: MarketModalProps) => {
+  const { onClose, open, isPurchase = true } = props;
   const { userStore, marketStore } = useStore();
 
   const [selectedItemList, setSelectedItemList] = useState<ItemInterface[]>([]);
@@ -104,7 +105,7 @@ export const MarketModal = observer((props: SimpleDialogProps) => {
           id="customized-dialog-title"
           style={{ margin: 0 }}
         >
-          {'상점'}
+          {isPurchase ? '주식 시장' : '내가 보유한 주식'}
         </StyledDialogTitle>
         <IconButton
           aria-label="close"
@@ -129,9 +130,6 @@ export const MarketModal = observer((props: SimpleDialogProps) => {
                   이름
                 </StyledTableCell>
                 <StyledTableCell align="center" style={{ width: '90px' }}>
-                  열매까지 기간
-                </StyledTableCell>
-                <StyledTableCell align="center" style={{ width: '90px' }}>
                   가격
                 </StyledTableCell>
                 <StyledTableCell align="center" style={{ width: '270px' }}>
@@ -151,12 +149,7 @@ export const MarketModal = observer((props: SimpleDialogProps) => {
                   <StyledTableCell align="center" component="th" scope="row">
                     <img src={item.bagImgSrc} width={60} height={60} />{' '}
                   </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {item.name + '씨앗'}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {item.day + '일'}
-                  </StyledTableCell>
+                  <StyledTableCell align="center">{item.name}</StyledTableCell>
                   <StyledTableCell align="center">
                     {item.price + '원'}
                   </StyledTableCell>
@@ -185,7 +178,7 @@ export const MarketModal = observer((props: SimpleDialogProps) => {
           style={{ height: '56px', fontFamily: 'Neo둥근모' }}
           disabled={selectedItemList.length === 0}
         >
-          구입하기
+          {isPurchase ? '구입하기' : '판매하기'}
         </Button>
       </StyledDialog>
       <Dialog open={failOpen} onClose={handleCloseFail}>

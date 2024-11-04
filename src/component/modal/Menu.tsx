@@ -4,18 +4,16 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { observer } from 'mobx-react-lite';
-import { useStore } from '../../hooks/useStore';
+import useAuthStore from '../../stores/useAuthStore';
 
 interface MenuModalProps {
   open: boolean;
   handleClose: () => void;
 }
-export const MenuModal = observer(({ open, handleClose }: MenuModalProps) => {
-  const { userStore } = useStore();
-
+export const MenuModal = ({ open, handleClose }: MenuModalProps) => {
+  const { setAuthenticated } = useAuthStore();
   const handleLogin = () => {
-    userStore.login();
+    setAuthenticated(false);
     handleClose();
   };
   return (
@@ -49,4 +47,4 @@ export const MenuModal = observer(({ open, handleClose }: MenuModalProps) => {
       </DialogActions>
     </Dialog>
   );
-});
+};
