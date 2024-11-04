@@ -23,7 +23,6 @@ export const StyledDialogTitle = styled(DialogTitle)`
   justify-content: center;
   margin-bottom: 20px;
   font-size: 26px;
-  font-family: 'Neo둥근모';
 `;
 
 export const StyledDialogHeader = styled('div')`
@@ -37,7 +36,6 @@ export const StyledDialogContentText = styled(DialogContentText)`
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  font-family: 'Neo둥근모';
 `;
 
 export const StyledDialogActions = styled(DialogActions)`
@@ -60,9 +58,6 @@ export const StyledTextField = styled(TextField)`
   & label.Mui-error {
     color: '#d32f2f';
   }
-  label {
-    font-family: 'Neo둥근모';
-  }
 
   height: 66px;
 `;
@@ -72,7 +67,6 @@ export const StyledButton = styled(Button)`
   color: white;
   width: 180px;
   height: 48px;
-  font-family: 'Neo둥근모';
   &:hover {
     background-color: black;
   }

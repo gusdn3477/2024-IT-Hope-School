@@ -32,7 +32,7 @@ export const SignupModal = observer(
     const [confirmPassword, setConfirmPassword] = useState('');
     const [gender, setGender] = useState('female');
 
-    const signup = async () => {
+    const handleSignup = async () => {
       const res = await userStore.signup({
         id,
         password,
@@ -55,6 +55,7 @@ export const SignupModal = observer(
             autoFocus
             margin="dense"
             id="name"
+            value={id}
             label="아이디"
             fullWidth
             onChange={(e) => setId(e.target.value)}
@@ -63,6 +64,7 @@ export const SignupModal = observer(
           <StyledTextField
             margin="dense"
             id="nickname"
+            value={nick}
             label="닉네임"
             onChange={(e) => setNick(e.target.value)}
             fullWidth
@@ -71,6 +73,7 @@ export const SignupModal = observer(
           <StyledTextField
             margin="dense"
             id="password"
+            value={password}
             label="비밀번호"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
@@ -80,6 +83,7 @@ export const SignupModal = observer(
           <StyledTextField
             margin="dense"
             id="confirm-password"
+            value={confirmPassword}
             label="비밀번호 확인"
             type="password"
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -87,23 +91,18 @@ export const SignupModal = observer(
             variant="standard"
           />
           <FormControl>
-            <FormLabel
-              id="demo-radio-buttons-group-label"
-              style={{ fontFamily: 'Neo둥근모' }}
-            >
-              성별
-            </FormLabel>
+            <FormLabel id="demo-radio-buttons-group-label">성별</FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               defaultValue="female"
               name="radio-buttons-group"
             >
-              <StyledFormControlLabel
+              <FormControlLabel
                 value="female"
                 control={<Radio onClick={() => setGender('female')} />}
                 label="여성"
               />
-              <StyledFormControlLabel
+              <FormControlLabel
                 value="male"
                 control={<Radio onClick={() => setGender('male')} />}
                 label="남성"
@@ -112,7 +111,7 @@ export const SignupModal = observer(
           </FormControl>
         </DialogContent>
         <StyledDialogActions>
-          <StyledButton variant="contained" onClick={signup}>
+          <StyledButton variant="contained" onClick={handleSignup}>
             회원가입
           </StyledButton>
           <StyledButton variant="contained" onClick={handleClose}>
@@ -123,9 +122,3 @@ export const SignupModal = observer(
     );
   },
 );
-
-const StyledFormControlLabel = styled(FormControlLabel)`
-  span {
-    font-family: 'Neo둥근모';
-  }
-`;

@@ -28,15 +28,11 @@ export interface MarketModalProps {
 }
 
 const StyledTableCell = styled(TableCell)`
-  font-family: 'Neo둥근모';
   word-break: keep-all;
 `;
 
 const StyledTextField = styled(TextField)`
   width: 80px;
-  input {
-    font-family: 'Neo둥근모';
-  }
 `;
 
 export const MarketModal = observer((props: MarketModalProps) => {
@@ -175,19 +171,15 @@ export const MarketModal = observer((props: MarketModalProps) => {
         </TableContainer>
         <Button
           onClick={handleClickBuy}
-          style={{ height: '56px', fontFamily: 'Neo둥근모' }}
+          style={{ height: '56px' }}
           disabled={selectedItemList.length === 0}
         >
           {isPurchase ? '구입하기' : '판매하기'}
         </Button>
       </StyledDialog>
       <Dialog open={failOpen} onClose={handleCloseFail}>
-        <DialogTitle style={{ fontFamily: 'Neo둥근모' }}>
-          {'잔액이 부족합니다'}
-        </DialogTitle>
-        <Button onClick={handleCloseFail} style={{ fontFamily: 'Neo둥근모' }}>
-          {'닫기'}
-        </Button>
+        <DialogTitle>{'잔액이 부족합니다'}</DialogTitle>
+        <Button onClick={handleCloseFail}>{'닫기'}</Button>
       </Dialog>
     </>
   );

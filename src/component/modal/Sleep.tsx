@@ -37,7 +37,6 @@ const SleepModal = (props: SleepModalProps) => {
         style={{
           textAlign: 'center',
           fontSize: '32px',
-          fontFamily: 'Neo둥근모',
         }}
       >
         Good Night

@@ -25,12 +25,7 @@ export const MenuPopover = ({ anchorEl, handleClose }: MenuPopoverProps) => {
       disableScrollLock
     >
       <Typography sx={{ cursor: 'pointer' }}>
-        <ListItem
-          onClick={() => setAuthenticated(false)}
-          style={{ fontFamily: 'Neo둥근모' }}
-        >
-          로그아웃
-        </ListItem>
+        <ListItem onClick={() => setAuthenticated(false)}>로그아웃</ListItem>
       </Typography>
     </Popover>
   );

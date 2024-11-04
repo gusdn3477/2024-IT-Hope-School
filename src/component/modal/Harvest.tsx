@@ -31,7 +31,6 @@ const HarvestModal = (props: HarvestModalProps) => {
         style={{
           textAlign: 'center',
           fontSize: '32px',
-          fontFamily: 'Neo둥근모',
         }}
       >
         <strong>축하합니다.</strong>

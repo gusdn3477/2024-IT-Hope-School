@@ -36,7 +36,6 @@ export const Header = observer(() => {
             <Button
               variant="contained"
               onClick={(e) => setAnchorEl(e.currentTarget)}
-              style={{ fontFamily: 'Neo둥근모' }}
             >
               메뉴 <MenuIcon style={{ width: '20px', height: '20px' }} />
             </Button>
