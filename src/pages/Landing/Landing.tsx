@@ -3,19 +3,12 @@ import gameLogo from '../../assets/life_game.jpg';
 import * as S from './style';
 import { SignupModal } from '../../component/modal/Signup';
 import { LoginModal } from '../../component/modal/Login';
-import { useNavigate } from 'react-router-dom';
 import login from '../../assets/login.png';
 import register from '../../assets/register.png';
-import logout from '../../assets/logout.png';
-import play from '../../assets/play.png';
-import useAuthStore from '../../stores/useAuthStore';
 
 export const Landing = () => {
-  const navigate = useNavigate();
-
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [signupModalOpen, setSignupModalOpen] = useState(false);
-  const { authenticated, setAuthenticated } = useAuthStore();
 
   return (
     <S.LandingWrapper>
