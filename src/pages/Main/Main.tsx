@@ -9,6 +9,13 @@ import { MarketModal } from '../../component/modal/Market';
 import { useStore } from '../../hooks/useStore';
 import SleepModal from '../../component/modal/Sleep';
 
+// IconSection Props 타입 정의
+interface IconSectionProps {
+  icon: string;
+  onClick?: () => void;
+  label: string;
+}
+
 const Main = () => {
   const [sleepModalOpen, setSleepModalOpen] = useState(false);
   const [marketOpen, setMarketOpen] = useState(false);
@@ -86,7 +93,7 @@ const IconGrid = styled.div`
   justify-content: space-between;
 `;
 
-const IconSection = ({ icon, onClick, label }) => (
+const IconSection = ({ icon, onClick, label }: IconSectionProps) => (
   <IconContainer onClick={onClick}>
     <img src={icon} alt={label} />
     <StyledSubText>{label}</StyledSubText>
