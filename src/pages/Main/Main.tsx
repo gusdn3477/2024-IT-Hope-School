@@ -1,79 +1,56 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { observer } from 'mobx-react-lite';
 import workIcon from '../../assets/work.png';
 import wealthIcon from '../../assets/wealth.png';
 import stockIcon from '../../assets/stock_market.png';
-import background from '../../assets/farm_image.jpg';
+import background from '../../assets/city.jpg';
 import houseIcon from '../../assets/house.png';
 import { MarketModal } from '../../component/modal/Market';
 import { useStore } from '../../hooks/useStore';
 import SleepModal from '../../component/modal/Sleep';
 
-const StyledFarmGrid = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-
-  & img {
-    cursor: pointer;
-  }
-
-  background-image: url(${background});
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
-
-const Main = observer(() => {
+const Main = () => {
   const [sleepModalOpen, setSleepModalOpen] = useState(false);
   const [marketOpen, setMarketOpen] = useState(false);
   const [isPurchase, setIsPurchase] = useState(true);
-  const WIDTH = 420;
-  const HEIGHT = 420;
 
   const { farmStore, userStore } = useStore();
 
-  const handleClickSleep = async () => {
+  const openSleepModal = async () => {
     setSleepModalOpen(true);
     await farmStore.sleep({ id: userStore.id });
   };
 
-  const handleTresureClick = () => {
+  const openTreasureModal = () => {
     setMarketOpen(true);
     setIsPurchase(false);
   };
 
-  const handleStockMarketClick = () => {
+  const openStockMarketModal = () => {
     setMarketOpen(true);
     setIsPurchase(true);
   };
 
   return (
-    <>
-      <StyledFarmGrid>
-        <img
-          src={houseIcon}
-          width={WIDTH}
-          height={HEIGHT}
-          alt="sleep"
-          onClick={handleClickSleep}
+    <MainContainer>
+      <IconGrid>
+        <IconSection icon={houseIcon} onClick={openSleepModal} label="잠자기" />
+        <IconSection
+          icon={wealthIcon}
+          onClick={openTreasureModal}
+          label="내 자산"
         />
-        <img
-          src={wealthIcon}
-          width={WIDTH}
-          height={HEIGHT}
-          alt="sleep"
-          onClick={handleTresureClick}
+        <IconSection
+          icon={workIcon}
+          onClick={() => alert('일하기')}
+          label="일하기"
         />
-        <img src={workIcon} width={WIDTH} height={HEIGHT} alt="work" />
-        <img
-          src={stockIcon}
-          width={WIDTH}
-          height={HEIGHT}
-          alt="stock"
-          onClick={handleStockMarketClick}
+        <IconSection
+          icon={stockIcon}
+          onClick={openStockMarketModal}
+          label="투자하기"
         />
-      </StyledFarmGrid>
+      </IconGrid>
 
       <SleepModal
         open={sleepModalOpen}
@@ -84,8 +61,56 @@ const Main = observer(() => {
         onClose={() => setMarketOpen(false)}
         isPurchase={isPurchase}
       />
-    </>
+    </MainContainer>
   );
-});
+};
 
 export default Main;
+
+// 스타일 정의와 공통 컴포넌트 분리
+const MainContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-image: url(${background});
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+const IconGrid = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const IconSection = ({ icon, onClick, label }) => (
+  <IconContainer onClick={onClick}>
+    <img src={icon} alt={label} />
+    <StyledSubText>{label}</StyledSubText>
+  </IconContainer>
+);
+
+const IconContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+
+  & img {
+    width: 100%;
+    height: 420px;
+  }
+`;
+
+const StyledSubText = styled.div`
+  width: 100%;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+`;
