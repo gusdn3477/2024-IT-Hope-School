@@ -1,9 +1,9 @@
 import './index.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Landing } from './pages/Landing';
-import { Header } from './pages/Main/Header';
 import { Main } from './pages/Main';
 import PrivateRoute from './PrivateRoute';
+import { Layout } from './pages/Layout';
 
 const App = () => {
   return (
@@ -11,7 +11,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route element={<PrivateRoute />}>
-          <Route path="main" element={<Header />}>
+          <Route path="main" element={<Layout />}>
             <Route path="" element={<Main />} />
           </Route>
         </Route>

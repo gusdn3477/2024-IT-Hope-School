@@ -1,15 +1,9 @@
 import { useState } from 'react';
-import {
-  HeaderTitleWrapper,
-  OutletWrapper,
-  StyledButtonWrapper,
-  StyledHeader,
-} from './style';
-import { Outlet } from 'react-router-dom';
+import { HeaderTitleWrapper, StyledButtonWrapper, StyledHeader } from './style';
 import gameLogo from '../../../assets/life_game.jpg';
+import coin from '../../../assets/coin.png';
 import { MenuPopover } from '../../../component/popover/Menu';
 import { Button } from '@mui/material';
-import coin from '../../../assets/coin.png';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../../hooks/useStore';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -22,7 +16,7 @@ export const Header = observer(() => {
     <>
       <StyledHeader>
         <div style={{ display: 'flex' }}>
-          <img src={gameLogo} style={{ width: '120px', marginLeft: '12px' }} />
+          <img src={gameLogo} style={{ width: '120px', marginLeft: '6px' }} />
         </div>
         <div style={{ display: 'flex' }}>
           <HeaderTitleWrapper>
@@ -43,10 +37,6 @@ export const Header = observer(() => {
         </div>
       </StyledHeader>
       <MenuPopover anchorEl={anchorEl} handleClose={() => setAnchorEl(null)} />
-
-      <OutletWrapper>
-        <Outlet />
-      </OutletWrapper>
     </>
   );
 });

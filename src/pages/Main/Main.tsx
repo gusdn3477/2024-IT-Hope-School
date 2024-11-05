@@ -9,6 +9,7 @@ import { MarketModal } from '../../component/modal/Market';
 import { useStore } from '../../hooks/useStore';
 import SleepModal from '../../component/modal/Sleep';
 import { WorkModal } from '../../component/modal/Work';
+import { Header } from './Header';
 
 // IconSection Props 타입 정의
 interface IconSectionProps {
@@ -16,6 +17,13 @@ interface IconSectionProps {
   onClick?: () => void;
   label: string;
 }
+
+const IconSection = ({ icon, onClick, label }: IconSectionProps) => (
+  <IconContainer onClick={onClick}>
+    <img src={icon} alt={label} />
+    <StyledSubText>{label}</StyledSubText>
+  </IconContainer>
+);
 
 const Main = () => {
   const [sleepModalOpen, setSleepModalOpen] = useState(false);
@@ -45,33 +53,43 @@ const Main = () => {
   };
 
   return (
-    <MainContainer>
-      <IconGrid>
-        <IconSection icon={houseIcon} onClick={openSleepModal} label="잠자기" />
-        <IconSection
-          icon={wealthIcon}
-          onClick={openTreasureModal}
-          label="내 자산"
-        />
-        <IconSection icon={workIcon} onClick={openWorkModal} label="일하기" />
-        <IconSection
-          icon={stockIcon}
-          onClick={openStockMarketModal}
-          label="투자하기"
-        />
-      </IconGrid>
+    <Layout>
+      <Header />
+      <MainContainer>
+        <IconGrid>
+          <IconSection
+            icon={houseIcon}
+            onClick={openSleepModal}
+            label="잠자기"
+          />
+          <IconSection
+            icon={wealthIcon}
+            onClick={openTreasureModal}
+            label="내 자산"
+          />
+          <IconSection icon={workIcon} onClick={openWorkModal} label="일하기" />
+          <IconSection
+            icon={stockIcon}
+            onClick={openStockMarketModal}
+            label="투자하기"
+          />
+        </IconGrid>
 
-      <SleepModal
-        open={sleepModalOpen}
-        onClose={() => setSleepModalOpen(false)}
-      />
-      <WorkModal open={workModalOpen} onClose={() => setWorkModalOpen(false)} />
-      <MarketModal
-        open={marketOpen}
-        onClose={() => setMarketOpen(false)}
-        isPurchase={isPurchase}
-      />
-    </MainContainer>
+        <SleepModal
+          open={sleepModalOpen}
+          onClose={() => setSleepModalOpen(false)}
+        />
+        <WorkModal
+          open={workModalOpen}
+          onClose={() => setWorkModalOpen(false)}
+        />
+        <MarketModal
+          open={marketOpen}
+          onClose={() => setMarketOpen(false)}
+          isPurchase={isPurchase}
+        />
+      </MainContainer>
+    </Layout>
   );
 };
 
@@ -96,13 +114,6 @@ const IconGrid = styled.div`
   justify-content: space-between;
 `;
 
-const IconSection = ({ icon, onClick, label }: IconSectionProps) => (
-  <IconContainer onClick={onClick}>
-    <img src={icon} alt={label} />
-    <StyledSubText>{label}</StyledSubText>
-  </IconContainer>
-);
-
 const IconContainer = styled.div`
   width: 100%;
   display: flex;
@@ -123,4 +134,11 @@ const StyledSubText = styled.div`
   align-items: center;
   justify-content: center;
   background-color: white;
+`;
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 `;

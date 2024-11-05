@@ -9,14 +9,6 @@ export const StyledHeader = styled.div`
   background-color: blue;
 `;
 
-export const OutletWrapper = styled.div`
-  width: 100%;
-  height: calc(100% - 72px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const StyledButtonWrapper = styled('div')`
   & button {
     margin: 6px;
