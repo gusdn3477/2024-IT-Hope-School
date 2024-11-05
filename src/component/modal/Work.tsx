@@ -1,5 +1,5 @@
 import { StyledDialog, StyledDialogTitle } from './style';
-import { ItemInterface, items as marketItems } from '../../constants/items';
+import { items } from '../../constants/work';
 import {
   Button,
   Dialog,
@@ -12,13 +12,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import _ from 'lodash';
 import styled from 'styled-components';
-import { useStore } from '../../hooks/useStore';
 import { observer } from 'mobx-react-lite';
 
 export interface WorkModalProps {
@@ -28,13 +26,10 @@ export interface WorkModalProps {
 
 export const WorkModal = observer((props: WorkModalProps) => {
   const { onClose, open } = props;
-  const { userStore, marketStore } = useStore();
 
-  const [selectedItemList, setSelectedItemList] = useState<ItemInterface[]>([]);
   const [failOpen, setFailOpen] = useState(false);
 
   const handleClose = () => {
-    setSelectedItemList([]);
     onClose();
   };
 
@@ -43,45 +38,7 @@ export const WorkModal = observer((props: WorkModalProps) => {
     handleClose();
   };
 
-  const handleChangeItem = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    selectedItem: ItemInterface,
-  ) => {
-    let copiedItemList = _.cloneDeep(selectedItemList);
-    let found = false;
-    const num = Number(e.target.value);
-    if (num === 0) {
-      copiedItemList = copiedItemList.filter(
-        (item) => item.id !== selectedItem.id,
-      );
-    } else {
-      copiedItemList.map((item) => {
-        if (item.id === selectedItem.id) {
-          item.count = num;
-          found = true;
-        }
-      });
-      if (!found) {
-        copiedItemList.push({ ...selectedItem, count: 1 });
-      }
-    }
-    setSelectedItemList(copiedItemList);
-  };
-
-  const handleClickBuy = async () => {
-    const dto = {
-      id: userStore.user.id,
-      items: selectedItemList.map((item) => {
-        return {
-          itemId: item.id,
-          count: item.count,
-        };
-      }),
-    };
-    const res = await marketStore.buy(dto);
-    if (res) handleClose();
-    else setFailOpen(true);
-  };
+  const handleClickBuy = async () => {};
 
   return (
     <>
@@ -118,54 +75,41 @@ export const WorkModal = observer((props: WorkModalProps) => {
                 <StyledTableCell align="center" style={{ width: '90px' }}>
                   수당
                 </StyledTableCell>
-                <StyledTableCell align="center" style={{ width: '270px' }}>
-                  설명
+                <StyledTableCell align="center" style={{ width: '90px' }}>
+                  피로도 소모
                 </StyledTableCell>
-                <StyledTableCell align="center" style={{ width: '80px' }}>
-                  개수
-                </StyledTableCell>
+                <StyledTableCell
+                  align="center"
+                  style={{ width: '80px' }}
+                ></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {Object.values(marketItems).map((item) => (
+              {items.map((item) => (
                 <TableRow
                   key={item.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <StyledTableCell align="center" component="th" scope="row">
-                    <img src={item.bagImgSrc} width={60} height={60} />{' '}
+                    <img src={item.imgSrc} width={60} height={60} />{' '}
                   </StyledTableCell>
                   <StyledTableCell align="center">{item.name}</StyledTableCell>
                   <StyledTableCell align="center">
-                    {item.price + '원'}
+                    {item.income + '원'}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {item.description}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    <StyledTextField
-                      id="outlined-number"
-                      type="number"
-                      defaultValue={0}
-                      onChange={(e) => handleChangeItem(e, item)}
-                      InputProps={{ inputProps: { min: 0, max: 10 } }}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                    />
+                    <Button onClick={handleClickBuy} style={{ height: '56px' }}>
+                      {'일하기'}
+                    </Button>
                   </StyledTableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-        <Button
-          onClick={handleClickBuy}
-          style={{ height: '56px' }}
-          disabled={selectedItemList.length === 0}
-        >
-          {'일하기'}
-        </Button>
       </StyledDialog>
       <Dialog open={failOpen} onClose={handleCloseFail}>
         <DialogTitle>{'피로도가 부족합니다'}</DialogTitle>
@@ -177,8 +121,4 @@ export const WorkModal = observer((props: WorkModalProps) => {
 
 const StyledTableCell = styled(TableCell)`
   word-break: keep-all;
-`;
-
-const StyledTextField = styled(TextField)`
-  width: 80px;
 `;
