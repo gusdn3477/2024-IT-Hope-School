@@ -126,7 +126,7 @@ export const MarketModal = observer((props: MarketModalProps) => {
                   이름
                 </StyledTableCell>
                 <StyledTableCell align="center" style={{ width: '90px' }}>
-                  가격
+                  {isPurchase ? '가격' : '1주당 평균 가격'}
                 </StyledTableCell>
                 <StyledTableCell align="center" style={{ width: '270px' }}>
                   설명

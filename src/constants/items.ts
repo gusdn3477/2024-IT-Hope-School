@@ -13,7 +13,7 @@ export interface ItemInterface {
 export const items = {
   '0': {
     id: '0',
-    name: 'NDIVIA',
+    name: '엔디비아',
     bagImgSrc: ndivia,
     price: 50,
     day: 1,
@@ -22,7 +22,7 @@ export const items = {
   },
   '1': {
     id: '1',
-    name: 'MACROSOFT',
+    name: '매크로소프트',
     bagImgSrc: macrosoft,
     price: 60,
     day: 1,
