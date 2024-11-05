@@ -17,7 +17,7 @@ export const items: WorkInterface[] = [
     imgSrc: wrench,
     income: 50,
     energySpent: 30,
-    description: '기계를 조립하여 50원의 수익을 얻는다.',
+    description: '기계를 조립하여 수익을 얻는다.',
   },
   {
     id: 1,
@@ -25,6 +25,6 @@ export const items: WorkInterface[] = [
     imgSrc: hammer,
     income: 60,
     energySpent: 45,
-    description: '주택을 건설하여 60원의 수입을 얻는다.',
+    description: '주택을 건설하여 수입을 얻는다.',
   },
 ];

@@ -69,14 +69,17 @@ export const WorkModal = observer((props: WorkModalProps) => {
                 <StyledTableCell align="center" style={{ width: '90px' }}>
                   사진
                 </StyledTableCell>
-                <StyledTableCell align="center" style={{ width: '90px' }}>
+                <StyledTableCell align="center" style={{ width: '45px' }}>
                   이름
                 </StyledTableCell>
                 <StyledTableCell align="center" style={{ width: '90px' }}>
-                  수당
+                  수익
                 </StyledTableCell>
                 <StyledTableCell align="center" style={{ width: '90px' }}>
                   피로도 소모
+                </StyledTableCell>
+                <StyledTableCell align="center" style={{ width: '90px' }}>
+                  설명
                 </StyledTableCell>
                 <StyledTableCell
                   align="center"
@@ -98,8 +101,11 @@ export const WorkModal = observer((props: WorkModalProps) => {
                     {item.income + '원'}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    {item.description}
+                    {item.energySpent}
                   </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {item.description}
+                  </StyledTableCell>{' '}
                   <StyledTableCell align="center">
                     <Button onClick={handleClickBuy} style={{ height: '56px' }}>
                       {'일하기'}
