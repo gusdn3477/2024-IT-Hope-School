@@ -28,6 +28,7 @@ export const HeaderTitleWrapper = styled('div')`
   align-items: center;
   justify-content: center;
   color: white;
+  font-size: 26px;
 
   & strong {
     margin-right: 8px;

@@ -101,7 +101,7 @@ export const MarketModal = observer((props: MarketModalProps) => {
           id="customized-dialog-title"
           style={{ margin: 0 }}
         >
-          {isPurchase ? '주식 시장' : '내가 보유한 주식'}
+          {isPurchase ? '주식 시장' : '내 자산'}
         </StyledDialogTitle>
         <IconButton
           aria-label="close"
