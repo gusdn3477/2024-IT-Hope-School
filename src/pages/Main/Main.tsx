@@ -8,6 +8,7 @@ import houseIcon from '../../assets/house.png';
 import { MarketModal } from '../../component/modal/Market';
 import { useStore } from '../../hooks/useStore';
 import SleepModal from '../../component/modal/Sleep';
+import { WorkModal } from '../../component/modal/Work';
 
 // IconSection Props 타입 정의
 interface IconSectionProps {
@@ -19,6 +20,7 @@ interface IconSectionProps {
 const Main = () => {
   const [sleepModalOpen, setSleepModalOpen] = useState(false);
   const [marketOpen, setMarketOpen] = useState(false);
+  const [workModalOpen, setWorkModalOpen] = useState(false);
   const [isPurchase, setIsPurchase] = useState(true);
 
   const { farmStore, userStore } = useStore();
@@ -26,6 +28,10 @@ const Main = () => {
   const openSleepModal = async () => {
     setSleepModalOpen(true);
     await farmStore.sleep({ id: userStore.id });
+  };
+
+  const openWorkModal = () => {
+    setWorkModalOpen(true);
   };
 
   const openTreasureModal = () => {
@@ -47,11 +53,7 @@ const Main = () => {
           onClick={openTreasureModal}
           label="내 자산"
         />
-        <IconSection
-          icon={workIcon}
-          onClick={() => alert('일하기')}
-          label="일하기"
-        />
+        <IconSection icon={workIcon} onClick={openWorkModal} label="일하기" />
         <IconSection
           icon={stockIcon}
           onClick={openStockMarketModal}
@@ -63,6 +65,7 @@ const Main = () => {
         open={sleepModalOpen}
         onClose={() => setSleepModalOpen(false)}
       />
+      <WorkModal open={workModalOpen} onClose={() => setWorkModalOpen(false)} />
       <MarketModal
         open={marketOpen}
         onClose={() => setMarketOpen(false)}
@@ -115,7 +118,7 @@ const IconContainer = styled.div`
 
 const StyledSubText = styled.div`
   width: 100%;
-  height: 36px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
