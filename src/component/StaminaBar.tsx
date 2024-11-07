@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import styled from 'styled-components';
 
-function StaminaBar() {
+const StaminaBar = () => {
   const [stamina, setStamina] = useState(100);
 
   const decreaseStamina = (amount: number) => {
@@ -8,12 +9,11 @@ function StaminaBar() {
   };
 
   return (
-    <div>
+    <StanimaWrapper>
       <div style={staminaBarStyle(stamina)} />
-      <button onClick={() => decreaseStamina(10)}>스태미너 감소</button>
-    </div>
+    </StanimaWrapper>
   );
-}
+};
 
 const staminaBarStyle = (stamina: number) => ({
   width: `${stamina}%`,
@@ -21,5 +21,9 @@ const staminaBarStyle = (stamina: number) => ({
   backgroundColor: stamina > 60 ? 'green' : stamina > 30 ? 'yellow' : 'red',
   transition: 'width 0.3s ease-in-out, background-color 0.3s ease-in-out',
 });
+
+const StanimaWrapper = styled.div`
+  width: 250px;
+`;
 
 export default StaminaBar;

@@ -7,6 +7,7 @@ import { Button } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../../hooks/useStore';
 import MenuIcon from '@mui/icons-material/Menu';
+import StaminaBar from '../../../component/StaminaBar';
 
 export const Header = observer(() => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -20,11 +21,13 @@ export const Header = observer(() => {
         </div>
         <div style={{ display: 'flex' }}>
           <HeaderTitleWrapper>
-            <strong>게임 시작한 지 {userStore.user.day}일 </strong>
-            <strong style={{ display: 'flex', alignItems: 'center' }}>
+            <span>게임 시작한 지 {userStore.user.day}일 </span>
+            <span>피로도 </span>
+            <StaminaBar />
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <img src={coin} width={24} height={24} />
-              <strong>{userStore.user.money}원</strong>
-            </strong>
+              <span>{userStore.user.money}원</span>
+            </div>
           </HeaderTitleWrapper>
           <StyledButtonWrapper>
             <Button

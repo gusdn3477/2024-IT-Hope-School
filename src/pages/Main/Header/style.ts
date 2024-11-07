@@ -13,16 +13,14 @@ export const StyledButtonWrapper = styled('div')`
   & button {
     margin: 6px;
   }
+  display: flex;
+  align-items: center;
 `;
 
 export const HeaderTitleWrapper = styled('div')`
   display: flex;
   align-items: center;
-  justify-content: center;
   color: white;
   font-size: 26px;
-
-  & strong {
-    margin-right: 8px;
-  }
+  gap: 36px;
 `;
