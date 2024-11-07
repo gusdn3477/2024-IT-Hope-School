@@ -15,9 +15,9 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
-import _ from 'lodash';
-import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
+import styled from 'styled-components';
+import workingImg from '../../assets/working.png';
 
 export interface WorkModalProps {
   open: boolean;
@@ -25,12 +25,17 @@ export interface WorkModalProps {
 }
 
 export const WorkModal = observer((props: WorkModalProps) => {
-  const { onClose, open } = props;
+  const { open, onClose } = props;
 
   const [failOpen, setFailOpen] = useState(false);
+  const [working, setWorking] = useState(false);
 
   const handleClose = () => {
     onClose();
+  };
+
+  const handleWorkingComplete = () => {
+    setWorking(false);
   };
 
   const handleCloseFail = () => {
@@ -38,7 +43,12 @@ export const WorkModal = observer((props: WorkModalProps) => {
     handleClose();
   };
 
-  const handleClickBuy = async () => {};
+  const handleClickBuy = async () => {
+    setWorking(true);
+    setTimeout(() => {
+      handleWorkingComplete();
+    }, 2000);
+  };
 
   return (
     <>
@@ -75,7 +85,7 @@ export const WorkModal = observer((props: WorkModalProps) => {
                 <StyledTableCell align="center" style={{ width: '90px' }}>
                   수익
                 </StyledTableCell>
-                <StyledTableCell align="center" style={{ width: '90px' }}>
+                <StyledTableCell align="center" style={{ width: '30px' }}>
                   피로도 소모
                 </StyledTableCell>
                 <StyledTableCell align="center" style={{ width: '90px' }}>
@@ -121,6 +131,24 @@ export const WorkModal = observer((props: WorkModalProps) => {
         <DialogTitle>{'피로도가 부족합니다'}</DialogTitle>
         <Button onClick={handleCloseFail}>{'닫기'}</Button>
       </Dialog>
+
+      <StyledDialog
+        open={working}
+        onClose={handleWorkingComplete}
+        disableScrollLock
+      >
+        <DialogTitle
+          style={{
+            textAlign: 'center',
+            fontSize: '32px',
+          }}
+        >
+          Working...
+        </DialogTitle>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <img src={workingImg} style={{ width: '500px', height: '500px' }} />
+        </div>
+      </StyledDialog>
     </>
   );
 });

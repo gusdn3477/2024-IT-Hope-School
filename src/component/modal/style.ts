@@ -12,9 +12,7 @@ import styled from 'styled-components';
 
 export const StyledDialog = styled(Dialog)`
   & .MuiDialog-paper {
-    width: 800px;
-    max-width: none;
-    overflow-y: hidden;
+    width: 600px;
   }
 `;
 export const StyledDialogTitle = styled(DialogTitle)`
