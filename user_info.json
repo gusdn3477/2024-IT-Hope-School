@@ -1,0 +1,62 @@
+{
+    "123": {
+        "pw": "123",
+        "userId": "123",
+        "day": 13,
+        "stamina": 100,
+        "money": 2150000,
+        "work_count": 0,
+        "stock": {
+            "NDVA": 150000,
+            "DSL": 300000
+        },
+        "player_shares": {
+            "NDVA": 0,
+            "DSL": 0
+        },
+        "total_shares": {
+            "NDVA": 1000000,
+            "DSL": 2000000
+        }
+    },
+    "12": {
+        "pw": "12",
+        "userId": "12",
+        "day": 1,
+        "stamina": 40,
+        "money": 650000,
+        "work_count": 0,
+        "stock": {
+            "NDVA": 150000,
+            "DSL": 300000
+        },
+        "player_shares": {
+            "NDVA": 0,
+            "DSL": 0
+        },
+        "total_shares": {
+            "NDVA": 1000000,
+            "DSL": 2000000
+        }
+    },
+    "1234": {
+        "pw": "1234",
+        "userId": "1234",
+        "day": 1,
+        "stamina": 60,
+        "money": 600000,
+        "work_count": 0,
+        "stock": {
+            "NDVA": 150000,
+            "DSL": 300000
+        },
+        "player_shares": {
+            "NDVA": 0,
+            "DSL": 0
+        },
+        "total_shares": {
+            "NDVA": 1000000,
+            "DSL": 2000000
+        }
+    }
+}
