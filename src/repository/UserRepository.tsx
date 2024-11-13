@@ -1,24 +1,12 @@
 import { API } from '../API';
 
 class UserRepository {
-  signUp({
-    id,
-    password,
-    regiDate,
-    nick,
-    gender,
-  }: {
-    id: string;
-    password: string;
-    regiDate: string;
-    nick: string;
-    gender: string;
-  }) {
-    return API.post('/signup', { id, password, regiDate, nick, gender });
+  signUp({ userId, password }: { userId: string; password: string }) {
+    return API.post('/signup', { userId, password });
   }
 
-  login({ id, password }: { id: string; password: string }) {
-    return API.post('/login', { id, password });
+  login({ userId, password }: { userId: string; password: string }) {
+    return API.post('/login', { userId, password });
   }
 }
 

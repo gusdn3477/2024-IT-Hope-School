@@ -26,7 +26,7 @@ export const LoginModal = observer(({ open, handleClose }: LoginModalProps) => {
 
   const handleLogin = async () => {
     const success = await userStore.login({
-      id,
+      userId: id,
       password,
     });
     if (success) {

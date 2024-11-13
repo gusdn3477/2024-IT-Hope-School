@@ -6,26 +6,22 @@ class UserStore {
     makeAutoObservable(this);
   }
 
-  async signup({ id, password, regiDate, nick, gender }) {
+  async signup({ userId, password }) {
     try {
       const res = await userRepository.signUp({
-        id,
+        userId,
         password,
-        regiDate,
-        nick,
-        gender,
       });
       return res.data.success ?? false;
     } catch (e) {
       console.log(e);
     }
   }
-  async login({ id, password }) {
+  async login({ userId, password }) {
     try {
-      const res = await userRepository.login({ id, password });
+      const res = await userRepository.login({ userId, password });
       if (res.data.success) {
-        this.user = toJS(res.data);
-        this.id = res.data.id;
+        this.user = toJS(res.data.data);
       }
       return res.data.success ?? false;
     } catch (e) {

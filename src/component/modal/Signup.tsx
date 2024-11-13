@@ -10,14 +10,6 @@ import {
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../hooks/useStore';
 import { useState } from 'react';
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from '@mui/material';
-import styled from 'styled-components';
 
 interface SignupModalProps {
   open: boolean;
@@ -27,18 +19,13 @@ export const SignupModal = observer(
   ({ open, handleClose }: SignupModalProps) => {
     const { userStore } = useStore();
     const [id, setId] = useState('');
-    const [nick, setNick] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [gender, setGender] = useState('female');
 
     const handleSignup = async () => {
       const res = await userStore.signup({
-        id,
+        userId: id,
         password,
-        regiDate: new Date(),
-        nick,
-        gender,
       });
 
       if (res) handleClose();
@@ -63,15 +50,6 @@ export const SignupModal = observer(
           />
           <StyledTextField
             margin="dense"
-            id="nickname"
-            value={nick}
-            label="닉네임"
-            onChange={(e) => setNick(e.target.value)}
-            fullWidth
-            variant="standard"
-          />
-          <StyledTextField
-            margin="dense"
             id="password"
             value={password}
             label="비밀번호"
@@ -90,25 +68,6 @@ export const SignupModal = observer(
             fullWidth
             variant="standard"
           />
-          <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label">성별</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="female"
-              name="radio-buttons-group"
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio onClick={() => setGender('female')} />}
-                label="여성"
-              />
-              <FormControlLabel
-                value="male"
-                control={<Radio onClick={() => setGender('male')} />}
-                label="남성"
-              />
-            </RadioGroup>
-          </FormControl>
         </DialogContent>
         <StyledDialogActions>
           <StyledButton variant="contained" onClick={handleSignup}>
