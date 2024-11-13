@@ -61,7 +61,7 @@ def buy_stock(id, stock_name, buy_num):
 
     # 업데이트된 데이터를 저장
     json_io.dict_to_json_file(userData)
-    return {"success": True, 'data': userData}
+    return {"success": True, 'data': userData[id]}
 
 def sell_stock(id, stock_name, sell_num):
     # json_file_to_dict 함수를 호출하여 userData를 가져옴

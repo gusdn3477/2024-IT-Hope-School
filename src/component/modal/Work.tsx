@@ -87,6 +87,12 @@ export const WorkModal = observer((props: WorkModalProps) => {
                 <StyledTableCell align="center" style={{ width: '45px' }}>
                   이름
                 </StyledTableCell>
+                <StyledTableCell align="center" style={{ width: '45px' }}>
+                  피로도 소모
+                </StyledTableCell>
+                <StyledTableCell align="center" style={{ width: '45px' }}>
+                  보상
+                </StyledTableCell>
                 <StyledTableCell align="center" style={{ width: '90px' }}>
                   설명
                 </StyledTableCell>
@@ -107,13 +113,23 @@ export const WorkModal = observer((props: WorkModalProps) => {
                   </StyledTableCell>
                   <StyledTableCell align="center">{item.name}</StyledTableCell>
                   <StyledTableCell align="center">
+                    {index === 0 ? 20 : 30}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {index === 0 ? 50000 : 80000}원
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
                     {item.description}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     <Button
                       onClick={() => handleClickBuy(index + 1)}
                       style={{ height: '56px' }}
-                      disabled={userStore.user.stamina < 20}
+                      disabled={
+                        index === 0
+                          ? userStore.user.stamina < 20
+                          : userStore.user.stamina < 30
+                      }
                     >
                       {'일하기'}
                     </Button>

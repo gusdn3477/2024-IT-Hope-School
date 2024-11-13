@@ -60,22 +60,10 @@ class WebRequestHandler(BaseHTTPRequestHandler):
 
         if service_name == '/buy_stocks':
             result = stock.buy_stock(body["userId"], body["stockName"], body["count"])
-            userData = stock.load_userData()
-            if body["stockName"] == "NDVA":
-                userData[f"{body["userId"]}"]["stock"]["NDVA"] += body["count"]
-            elif body["stockName"] == "DSL":
-                userData[f"{body["userId"]}"]["stock"]["DSL"] += body["count"]
-            dict_to_json_data(userData)
-
+            
         if service_name == '/sell_stocks':
             result = stock.sell_stock(body["userId"], body["stockName"], body["count"])
-            userData = stock.load_userData()
-            if body["stockName"] == "NDVA":
-                userData[f"{body["userId"]}"]["stock"]["NDVA"] -= body["count"]
-            elif body["stockName"] == "DSL":
-                userData[f"{body["userId"]}"]["stock"]["DSL"] -= body["count"]
-            dict_to_json_data(userData)        
-
+                  
         if service_name == '/work':
             result = work.work(body["userId"], body["workId"])
 

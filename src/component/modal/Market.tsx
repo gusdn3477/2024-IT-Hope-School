@@ -1,5 +1,5 @@
 import { StyledDialog, StyledDialogTitle } from './style';
-import { ItemInterface, items as marketItems } from '../../constants/items';
+import { items as marketItems } from '../../constants/items';
 import {
   Button,
   Dialog,
@@ -20,6 +20,7 @@ import _ from 'lodash';
 import styled from 'styled-components';
 import { useStore } from '../../hooks/useStore';
 import { observer } from 'mobx-react-lite';
+import { toJS } from 'mobx';
 
 export interface MarketModalProps {
   open: boolean;
@@ -38,57 +39,51 @@ const StyledTextField = styled(TextField)`
 export const MarketModal = observer((props: MarketModalProps) => {
   const { onClose, open, isPurchase = true } = props;
   const { userStore, marketStore } = useStore();
+  const [count, setCount] = useState({
+    NDVA: 0,
+    DSL: 0,
+  });
 
-  const [selectedItemList, setSelectedItemList] = useState<ItemInterface[]>([]);
   const [failOpen, setFailOpen] = useState(false);
 
   const handleClose = () => {
-    setSelectedItemList([]);
     onClose();
+    setCount({
+      NDVA: 0,
+      DSL: 0,
+    });
   };
 
   const handleCloseFail = () => {
     setFailOpen(false);
-    handleClose();
   };
 
-  const handleChangeItem = (
+  const handleCountChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    selectedItem: ItemInterface,
+    stockName: string,
   ) => {
-    let copiedItemList = _.cloneDeep(selectedItemList);
-    let found = false;
     const num = Number(e.target.value);
-    if (num === 0) {
-      copiedItemList = copiedItemList.filter(
-        (item) => item.id !== selectedItem.id,
-      );
-    } else {
-      copiedItemList.map((item) => {
-        if (item.id === selectedItem.id) {
-          item.count = num;
-          found = true;
-        }
-      });
-      if (!found) {
-        copiedItemList.push({ ...selectedItem, count: 1 });
-      }
-    }
-    setSelectedItemList(copiedItemList);
+    setCount({ ...count, [stockName]: num });
   };
 
-  const handleClickBuy = async () => {
-    console.log(selectedItemList);
+  const handleClickBuy = async (stockName, count) => {
     const dto = {
-      id: userStore.user.id,
-      items: selectedItemList.map((item) => {
-        return {
-          itemId: item.id,
-          count: item.count,
-        };
-      }),
+      userId: userStore.user.userId,
+      stockName,
+      count,
     };
     const res = await marketStore.buy(dto);
+    if (res) handleClose();
+    else setFailOpen(true);
+  };
+
+  const handleClickSell = async (stockName, count) => {
+    const dto = {
+      userId: userStore.user.userId,
+      stockName,
+      count,
+    };
+    const res = await marketStore.sell(dto);
     if (res) handleClose();
     else setFailOpen(true);
   };
@@ -119,21 +114,24 @@ export const MarketModal = observer((props: MarketModalProps) => {
           <Table>
             <TableHead>
               <TableRow>
-                <StyledTableCell align="center" style={{ width: '90px' }}>
+                <StyledTableCell align="center" style={{ width: '60px' }}>
                   사진
                 </StyledTableCell>
-                <StyledTableCell align="center" style={{ width: '90px' }}>
+                <StyledTableCell align="center" style={{ width: '20px' }}>
                   이름
                 </StyledTableCell>
                 <StyledTableCell align="center" style={{ width: '90px' }}>
-                  {isPurchase ? '가격' : '1주당 평균 가격'}
+                  가격
                 </StyledTableCell>
-                <StyledTableCell align="center" style={{ width: '270px' }}>
-                  설명
-                </StyledTableCell>
+                {!isPurchase && (
+                  <StyledTableCell align="center" style={{ width: '80px' }}>
+                    가진 주식 수
+                  </StyledTableCell>
+                )}
                 <StyledTableCell align="center" style={{ width: '80px' }}>
                   개수
                 </StyledTableCell>
+                <StyledTableCell align="center"></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -143,42 +141,70 @@ export const MarketModal = observer((props: MarketModalProps) => {
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <StyledTableCell align="center" component="th" scope="row">
-                    <img src={item.bagImgSrc} width={60} height={60} />{' '}
+                    <img src={item.bagImgSrc} width={60} height={60} />
                   </StyledTableCell>
                   <StyledTableCell align="center">{item.name}</StyledTableCell>
                   <StyledTableCell align="center">
-                    {item.price + '원'}
+                    {item.id === 'NDVA'
+                      ? userStore.user.stock.NDVA
+                      : userStore.user.stock.DSL}
+                    원
                   </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {item.description}
-                  </StyledTableCell>
+                  {!isPurchase && (
+                    <StyledTableCell align="center">
+                      {item.id === 'NDVA'
+                        ? userStore.user.player_shares.NDVA
+                        : userStore.user.player_shares.DSL}
+                      개
+                    </StyledTableCell>
+                  )}
+
                   <StyledTableCell align="center">
                     <StyledTextField
                       id="outlined-number"
                       type="number"
+                      value={item.id === 'NDVA' ? count.NDVA : count.DSL}
                       defaultValue={0}
-                      onChange={(e) => handleChangeItem(e, item)}
-                      InputProps={{ inputProps: { min: 0, max: 10 } }}
+                      onChange={(e) => handleCountChange(e, item.id)}
+                      InputProps={{ inputProps: { min: 0 } }}
                       InputLabelProps={{
                         shrink: true,
                       }}
                     />
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <Button
+                      onClick={
+                        isPurchase
+                          ? () =>
+                              handleClickBuy(
+                                item.id,
+                                item.id === 'NDVA' ? count.NDVA : count.DSL,
+                              )
+                          : () =>
+                              handleClickSell(
+                                item.id,
+                                item.id === 'NDVA' ? count.NDVA : count.DSL,
+                              )
+                      }
+                      style={{ height: '56px' }}
+                      disabled={item.id === 'NDVA' ? !count.NDVA : !count.DSL}
+                    >
+                      {isPurchase ? '구입하기' : '판매하기'}
+                    </Button>
                   </StyledTableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-        <Button
-          onClick={handleClickBuy}
-          style={{ height: '56px' }}
-          disabled={selectedItemList.length === 0}
-        >
-          {isPurchase ? '구입하기' : '판매하기'}
-        </Button>
       </StyledDialog>
       <Dialog open={failOpen} onClose={handleCloseFail}>
-        <DialogTitle>{'잔액이 부족합니다'}</DialogTitle>
+        <DialogTitle>
+          {isPurchase
+            ? '잔액이 부족합니다'
+            : '가지고 있는 주식 갯수가 부족합니다.'}
+        </DialogTitle>
         <Button onClick={handleCloseFail}>{'닫기'}</Button>
       </Dialog>
     </>

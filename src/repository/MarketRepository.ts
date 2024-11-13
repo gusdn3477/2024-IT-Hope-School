@@ -6,8 +6,12 @@ class MarketRepository {
     return API.get('/market');
   }
 
-  buy(dto: { id: string; items: { itemId: string; count: number }[] }) {
-    return API.post('/buy', dto);
+  buy(dto: { userId: string; stockName: string; count: number }) {
+    return API.post('/buy_stocks', dto);
+  }
+
+  sell(dto: { userId: string; stockName: string; count: number }) {
+    return API.post('/sell_stocks', dto);
   }
 }
 

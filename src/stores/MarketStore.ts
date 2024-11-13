@@ -18,11 +18,24 @@ class MarketStore {
     }
   }
 
-  async buy(dto: { id: string; items: { itemId: string; count: number }[] }) {
+  async buy(dto: { userId: string; stockName: string; count: number }) {
     try {
       const res = await marketRepository.buy(dto);
       if (res.data.success) {
-        userStore.user = toJS(res.data);
+        userStore.user = toJS(res.data.data);
+        return true;
+      }
+      return false;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async sell(dto: { userId: string; stockName: string; count: number }) {
+    try {
+      const res = await marketRepository.sell(dto);
+      if (res.data.success) {
+        userStore.user = toJS(res.data.data);
         return true;
       }
       return false;
