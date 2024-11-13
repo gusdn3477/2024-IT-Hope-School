@@ -28,8 +28,6 @@ def change_stock(id):
     userData = json_io.json_file_to_dict()
     userData[id]["stock"]["NDVA"] = simulate_stock_price(userData[id]["stock"]["NDVA"])
     userData[id]["stock"]["DSL"] = simulate_stock_price(userData[id]["stock"]["DSL"])
-    print("가격 변동")
-    print(f"NDVA: {userData[id]["stock"]["NDVA"]}\nDSL: {userData[id]["stock"]["DSL"]}")
     json_io.dict_to_json_file(userData)
 
     return {"success": True, 'data': userData[id]}
