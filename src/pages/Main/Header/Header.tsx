@@ -23,7 +23,7 @@ export const Header = observer(() => {
           <HeaderTitleWrapper>
             <span>게임 시작한 지 {userStore.user.day}일 </span>
             <span>피로도 </span>
-            <StaminaBar />
+            <StaminaBar stamina={userStore.user.stamina} />
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <img src={coin} width={24} height={24} />
               <span>{userStore.user.money}원</span>

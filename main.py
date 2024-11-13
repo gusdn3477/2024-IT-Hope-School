@@ -1,5 +1,5 @@
 from http.server import HTTPServer,BaseHTTPRequestHandler
-from urllib.parse import urlparse,parse_qs # 추가
+from urllib.parse import urlparse
 from json_util.json_io import dict_to_json_data, json_data_to_dict, json_file_to_dict
 import funtion.account as account
 import funtion.day as day
@@ -77,12 +77,11 @@ class WebRequestHandler(BaseHTTPRequestHandler):
             dict_to_json_data(userData)        
 
         if service_name == '/work':
-            result = work.work(body["userId"])
+            result = work.work(body["userId"], body["workId"])
 
         if result:
             result_data = dict_to_json_data(result)
             self.wfile.write(result_data.encode('utf-8'))
 
-print("run")
 server = HTTPServer(("127.0.0.1", 8081), WebRequestHandler)
 server.serve_forever()

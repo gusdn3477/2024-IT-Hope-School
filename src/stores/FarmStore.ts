@@ -8,11 +8,21 @@ class FarmStore {
     makeAutoObservable(this);
   }
 
-  async sleep({ id }) {
+  async sleep({ userId }: { userId: string }) {
     try {
-      const res = await farmRepository.sleep({ id });
-      userStore.user = toJS(res.data);
+      const res = await farmRepository.sleep({ userId });
+      userStore.user = toJS(res.data.data);
       return res.data.farm;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async work({ userId, workId }: { userId: string; workId: number }) {
+    try {
+      const res = await farmRepository.work({ userId, workId });
+      userStore.user = toJS(res.data.data);
+      return res.data.success ?? false;
     } catch (e) {
       console.log(e);
     }

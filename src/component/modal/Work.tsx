@@ -18,6 +18,8 @@ import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 import workingImg from '../../assets/working.png';
+import { farmStore } from '../../stores/FarmStore';
+import { userStore } from '../../stores/UserStore';
 
 export interface WorkModalProps {
   open: boolean;
@@ -43,11 +45,14 @@ export const WorkModal = observer((props: WorkModalProps) => {
     handleClose();
   };
 
-  const handleClickBuy = async () => {
-    setWorking(true);
-    setTimeout(() => {
-      handleWorkingComplete();
-    }, 2000);
+  const handleClickBuy = async (workId: number) => {
+    const res = await farmStore.work({ userId: userStore.user.userId, workId });
+    if (res) {
+      setWorking(true);
+      setTimeout(() => {
+        handleWorkingComplete();
+      }, 2000);
+    }
   };
 
   return (
@@ -83,12 +88,6 @@ export const WorkModal = observer((props: WorkModalProps) => {
                   이름
                 </StyledTableCell>
                 <StyledTableCell align="center" style={{ width: '90px' }}>
-                  수익
-                </StyledTableCell>
-                <StyledTableCell align="center" style={{ width: '30px' }}>
-                  피로도 소모
-                </StyledTableCell>
-                <StyledTableCell align="center" style={{ width: '90px' }}>
                   설명
                 </StyledTableCell>
                 <StyledTableCell
@@ -98,26 +97,24 @@ export const WorkModal = observer((props: WorkModalProps) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((item) => (
+              {items.map((item, index) => (
                 <TableRow
                   key={item.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <StyledTableCell align="center" component="th" scope="row">
-                    <img src={item.imgSrc} width={60} height={60} />{' '}
+                    <img src={item.imgSrc} width={60} height={60} />
                   </StyledTableCell>
                   <StyledTableCell align="center">{item.name}</StyledTableCell>
                   <StyledTableCell align="center">
-                    {item.income + '원'}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {item.energySpent}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
                     {item.description}
-                  </StyledTableCell>{' '}
+                  </StyledTableCell>
                   <StyledTableCell align="center">
-                    <Button onClick={handleClickBuy} style={{ height: '56px' }}>
+                    <Button
+                      onClick={() => handleClickBuy(index + 1)}
+                      style={{ height: '56px' }}
+                      disabled={userStore.user.stamina < 20}
+                    >
                       {'일하기'}
                     </Button>
                   </StyledTableCell>

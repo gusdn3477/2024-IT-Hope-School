@@ -2,17 +2,32 @@ import random
 import json
 import json_util.json_io as json_io
 
+
+def simulate_stock_price(initial_price, min_change=-2, max_change=5):
+    """
+    주어진 초기 주식 가격에 랜덤 증감율을 적용하여 새로운 주가를 계산한다.
+    
+    Parameters:
+    - initial_price (float): 초기 주식 가격
+    - min_change (float): 최소 변동률 (%)
+    - max_change (float): 최대 변동률 (%)s
+    
+    Returns:
+    - new_price (float): 변동된 새로운 주가
+    """
+    # -2%에서 +5% 사이의 증감율을 랜덤으로 생성
+    change_percentage = random.uniform(min_change, max_change)
+    
+    # 변동된 주가 계산
+    new_price = initial_price * (1 + change_percentage / 100)
+    
+    return int(new_price)
+
+
 def change_stock(id):
     userData = json_io.json_file_to_dict()
-    mul1 = random.randint(-200, 200)
-    mul2 = random.randint(-500, 500)
-    money1 = random.randint(100000, 200000)
-    money2 = random.randint(100000, 300000)
-    add1 = round(mul1 / 100, 1)
-    add2 = round(mul2 / 100, 1)
-
-    userData[id]["stock"]["NDVA"] = max(int(userData[id]["stock"]["NDVA"] + money1 * add1), 50000)
-    userData[id]["stock"]["DSL"] = max(int(userData[id]["stock"]["DSL"] + money2 * add2), 100000)
+    userData[id]["stock"]["NDVA"] = simulate_stock_price(userData[id]["stock"]["NDVA"])
+    userData[id]["stock"]["DSL"] = simulate_stock_price(userData[id]["stock"]["DSL"])
     print("가격 변동")
     print(f"NDVA: {userData[id]["stock"]["NDVA"]}\nDSL: {userData[id]["stock"]["DSL"]}")
     json_io.dict_to_json_file(userData)

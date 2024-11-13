@@ -10,6 +10,7 @@ import { useStore } from '../../hooks/useStore';
 import SleepModal from '../../component/modal/Sleep';
 import { WorkModal } from '../../component/modal/Work';
 import { Header } from './Header';
+import { observer } from 'mobx-react-lite';
 
 // IconSection Props 타입 정의
 interface IconSectionProps {
@@ -25,7 +26,7 @@ const IconSection = ({ icon, onClick, label }: IconSectionProps) => (
   </IconContainer>
 );
 
-const Main = () => {
+const Main = observer(() => {
   const [sleepModalOpen, setSleepModalOpen] = useState(false);
   const [marketOpen, setMarketOpen] = useState(false);
   const [workModalOpen, setWorkModalOpen] = useState(false);
@@ -35,7 +36,7 @@ const Main = () => {
 
   const openSleepModal = async () => {
     setSleepModalOpen(true);
-    await farmStore.sleep({ id: userStore.id });
+    await farmStore.sleep({ userId: userStore.user.userId });
   };
 
   const openWorkModal = () => {
@@ -91,7 +92,7 @@ const Main = () => {
       </MainContainer>
     </Layout>
   );
-};
+});
 
 export default Main;
 

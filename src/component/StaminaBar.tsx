@@ -1,19 +1,16 @@
-import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 
-const StaminaBar = () => {
-  const [stamina, setStamina] = useState(100);
-
-  const decreaseStamina = (amount: number) => {
-    setStamina((prev) => Math.max(prev - amount, 0));
-  };
-
+interface StaminaBarProps {
+  stamina: number;
+}
+const StaminaBar = observer(({ stamina }: StaminaBarProps) => {
   return (
     <StanimaWrapper>
       <div style={staminaBarStyle(stamina)} />
     </StanimaWrapper>
   );
-};
+});
 
 const staminaBarStyle = (stamina: number) => ({
   width: `${stamina}%`,

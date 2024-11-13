@@ -1,8 +1,12 @@
 import { API } from '../API';
 
 class FarmRepository {
-  sleep({ id }: { id: string }) {
-    return API.post('/sleep', { id });
+  sleep({ userId }: { userId: string }) {
+    return API.post('/sleep', { userId });
+  }
+
+  work({ userId, workId }: { userId: string; workId: number }) {
+    return API.post('/work', { userId, workId });
   }
 
   harvest({
