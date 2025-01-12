@@ -1,0 +1,10 @@
+# Dockerfile.frontend
+
+# 1. Nginx 기반 이미지 사용
+FROM nginx:latest
+
+# 2. 리액트 빌드 폴더를 Nginx 웹 루트로 복사
+COPY build /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
